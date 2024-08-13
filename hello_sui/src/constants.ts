@@ -1,0 +1,2 @@
+export const HELLO_SUI_PACKAGE_ID =
+  "0x1108841b70a7aedd7f210bf86f4708bda5b9ef7b89512294cf8af05973a00d34";
