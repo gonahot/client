@@ -60,7 +60,7 @@ export default function Home() {
                 <div className="w-4/5 mt-20 flex flex-row h-96">
                     <div className="w-3/4">
                         <div className="text-2xl flex flex-col h-full">
-                            <div className="p-3 bg-white border rounded-lg flex flex-col w-2/3 items-center justify-content h-full">
+                            <div className="p-3 bg-white border rounded-lg flex flex-col w-2/3 items-center justify-content ">
                                 {
                                     isSign ? (
                                         <div className="border rounded-lg flex flex-col items-center justify-content w-2/3 p-2 mt-10">

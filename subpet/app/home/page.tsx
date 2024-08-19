@@ -5,15 +5,18 @@ export default function Home() {
         <main className="bg-black">
             <div className="flex flex-row w-full min-h-screen">
                 <div className="w-1/4 ml-20 mt-20 flex flex-col">
+                    
                     <div className="text-white text-3xl flex justify-center items-center">
                         Introduction
                     </div>
+
                     <div className="bg-white h-80 text-2xl flex justify-center items-center p-3 mt-5">
                         Our product is a growth-oriented pet with NFT overlay
                         as its core technology. By interacting with the pet,
                         you can earn points to purchase clothing! If you want
                         your pet to accompany your life, welcome to SuiPet!
                     </div>
+                    
                 </div>
 
                 <div className="w-3/4 ml-20 mt-20 flex flex-row">

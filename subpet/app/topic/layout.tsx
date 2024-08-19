@@ -17,13 +17,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={myFont.className}>
+    <div lang="en">
+      <div className={myFont.className}>
         <NavLinks />
         <main>
           {children}
         </main>
-      </body>
-    </html>
+      </div>
+    </div>
   );
 }
