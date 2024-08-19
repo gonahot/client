@@ -58,7 +58,7 @@ export function NavLinks() {
             className={`link ${
               pathname === "/more" ? "bg-active text-active" : ""
             } block w-full h-full leading-[52px]`}
-            href="/topic"
+            href="/more"
           >
             More
           </Link>
