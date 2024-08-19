@@ -16,7 +16,13 @@ const config: Config = {
       spacing:{
         '662':'662px',
         '556':''
-      }
+      },
+      backgroundColor: {
+        'active': '#000000', 
+      },
+      textColor: {
+        'active': '#ffffff', 
+      },
     },
   },
   plugins: [],
