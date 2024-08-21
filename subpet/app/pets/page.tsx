@@ -116,8 +116,14 @@ export default function Home() {
               Pets Information
             </div>
 
-            <div className="text-3xl mt-3 bg-white rounded-md h-96 w-full">
-              Pets Information
+            <div className="text-3xl mt-3 bg-white rounded-md h-96 w-full p-3">
+              <ul>
+                <li>Name:</li>
+                <li>Birth:</li>
+                <li>Level:</li>
+                <li>Name:</li>
+
+              </ul>
             </div>
           </div>
         </div>
