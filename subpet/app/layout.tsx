@@ -10,6 +10,8 @@ import {
 } from "./constant";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import '@mysten/dapp-kit/dist/index.css';
+import { PetDataProvider } from "./context/PetDataContext";
+
 
 // Config options for the networks you want to connect to
 const { networkConfig } = createNetworkConfig({
@@ -41,6 +43,7 @@ export default function RootLayout({
     <QueryClientProvider client={queryClient}>
       <SuiClientProvider networks={networkConfig} defaultNetwork="testnet">
         <WalletProvider>
+          <PetDataProvider>
           <html lang="en">
             <body className={myFont.className}>
               <main>
@@ -48,6 +51,7 @@ export default function RootLayout({
               </main>
             </body>
           </html>
+          </PetDataProvider>
         </WalletProvider>
       </SuiClientProvider>
     </QueryClientProvider>

@@ -2,11 +2,15 @@
 import { Sign } from "crypto";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {usePetData} from '../context/PetDataContext';
+import { Transaction } from "@mysten/sui/transactions";
+import { useNetworkVariable } from "../networkConfig";
 
 export default function Home() {
   const [isSign, setIsSign] = useState(false);
-
+  const { petData, setPetData } = usePetData();
+  const counterPackageId = useNetworkVariable("counterPackageId");
   function SignIn() {
     // alert("确认登录？");
     setIsSign(true);
@@ -14,6 +18,11 @@ export default function Home() {
   function onClose() {
     setIsSign(false);
   }
+
+  function getAccessories() {
+    
+  }
+  
 
   return (
     <main className="bg-black">
@@ -52,7 +61,11 @@ export default function Home() {
               />
             </div>
             <div className="w-3/4">
-              <button className="w-1/2 bg-white text-lg border-2 border-white rounded-lg">
+              <button className="w-1/2 bg-white text-lg border-2 border-white rounded-lg"
+                onClick={() => {
+                  getAccessories();
+                }}
+              >
                 Accessories
               </button>
             </div>
@@ -118,11 +131,9 @@ export default function Home() {
 
             <div className="text-3xl mt-3 bg-white rounded-md h-96 w-full p-3">
               <ul>
-                <li>Name:</li>
-                <li>Birth:</li>
-                <li>Level:</li>
-                <li>Name:</li>
-
+                <li>Name:{petData.name}</li>
+                <li>Birth:{petData.birthdate}</li>
+                <li>Level:{petData.grade_level}</li>
               </ul>
             </div>
           </div>
