@@ -67,16 +67,17 @@ export default function Home() {
       console.log(
         "here is ",
         data.data,
-
       );
 	
-			setPetData({
+		setPetData({
         // @ts-ignore
         name: data.data?.content?.fields.name,
         // @ts-ignore
         birthdate: timestampToDateTime(Number(data.data?.content?.fields.birthdate)),
         // @ts-ignore
         grade_level: data.data?.content?.fields.grade_level,
+		// @ts-ignore
+		url:(data.data?.content?.fields.url).toString(),
       });
 		}
 
