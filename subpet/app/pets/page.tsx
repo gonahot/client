@@ -13,17 +13,10 @@ export default function Home() {
   const counterPackageId = useNetworkVariable("counterPackageId");
 
   useEffect(() => {
-    if (window.localStorage.getItem("imgUrl") === "帽子1") {
-      setImgUrl("/图/单穿动图/animation_副本.gif");
-    } else if (window.localStorage.getItem("imgUrl") === "星星") {
-      setImgUrl("/图/action服饰/星星.gif");
-    } else if (window.localStorage.getItem("imgUrl") === "衣服1") { 
-      setImgUrl("/图/单穿动图/animation_副本3.gif");
-    }
-    else {
-      setImgUrl("/base.gif");
-    }
+    setImgUrl(window.localStorage.getItem("imgUrl") || "/base.gif");
   }, [imgUrl]);
+
+  const petInfo = JSON.parse(window.localStorage.getItem("petInfo") || "")
 
   return (
     <>
@@ -34,8 +27,8 @@ export default function Home() {
                   className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert items-center justify-content mt-20"
                   src={imgUrl || "/base.gif"}
                   alt="Base"
-                  width={500}
-                  height={500}
+                  width={300}
+                  height={300}
                   priority
                 />
               </div>
@@ -50,10 +43,9 @@ export default function Home() {
 
             <div className="text-3xl mt-3 bg-white rounded-md h-96 w-full p-3">
               <ul>
-                <li>Name:  {petData.name}</li>
-                <li>Birth:  {petData.birthdate}</li>
-                <li>Level:  {petData.grade_level}</li>
-                {/* <li>url:  {petData.url}</li> */}
+                <li>Name:  {petData.name || petInfo.name}</li>
+                <li>Birth:  {petData.birthdate || petInfo.birthdate}</li>
+                <li>Level:  {petData.grade_level || petInfo.grade_level}</li>
               </ul>
             </div>
           </div> 

@@ -10,6 +10,7 @@ import {
 import { Transaction } from "@mysten/sui/transactions";
 import { useNetworkVariable } from "../../networkConfig";
 import { useRouter } from "next/navigation";
+import { useClothes,useCaps, useAction } from "@/app/hooks/useGetAccessories";
 
 export default function Exchange() {
 	const counterPackageId = useNetworkVariable("counterPackageId");
@@ -19,6 +20,10 @@ export default function Exchange() {
 	const userAcount = window.localStorage.getItem("user");
 	const router = useRouter();
 	const [imgUrl, setImgUrl] = useState("");
+
+	const cloth = useClothes();
+	const cap = useCaps();
+	const action = useAction();
 
 	const { mutate: signAndExecute } = useSignAndExecuteTransaction({
 		execute: async ({ bytes, signature }) =>
@@ -49,13 +54,13 @@ export default function Exchange() {
 						
 						switch (type) {
 							case 1:
-								setImgUrl('/图/cloth服饰/帽子1.jpg')
+								setImgUrl(cloth.randomUrl)
 								break;
 							case 2:
-								setImgUrl('/图/action服饰/星星.gif')
+								setImgUrl(action.randomUrl)
 								break;
 							case 3:
-								setImgUrl('/图/cloth服饰/衣服1.jpg')
+								setImgUrl(cap.randomUrl)
 								break;
 							default:
 								setImgUrl('/base.gif')
@@ -89,14 +94,14 @@ export default function Exchange() {
 
 	function rightNow() {
 		setIsChoose(false);
-		if (imgUrl === '/图/cloth服饰/帽子1.jpg') {
-		window.localStorage.setItem("imgUrl", '帽子1');
+		if (imgUrl === cap.randomUrl) {
+		window.localStorage.setItem("imgUrl", cap.gif);
 		}
-		if (imgUrl === '/图/action服饰/星星.gif') {
-		window.localStorage.setItem("imgUrl", '星星');
+		if (imgUrl === action.randomUrl) {
+		window.localStorage.setItem("imgUrl", action.gif);
 		}
-		if (imgUrl === '/图/cloth服饰/衣服1.jpg') {
-		window.localStorage.setItem("imgUrl", '衣服1');
+		if (imgUrl === cloth.randomUrl){
+		window.localStorage.setItem("imgUrl", cloth.gif);
 		}
 		router.push("/pets");
 	}

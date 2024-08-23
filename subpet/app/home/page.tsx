@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from 'next/link'
 
-import { useSignAndExecuteTransaction, useSuiClient,useSuiClientQuery } from '@mysten/dapp-kit';
+import { useSignAndExecuteTransaction, useSuiClient, useSuiClientQuery } from '@mysten/dapp-kit';
 import { Transaction } from '@mysten/sui/transactions';
 
 import { useNetworkVariable } from "../networkConfig";
@@ -12,36 +12,37 @@ import { usePetData } from "../context/PetDataContext";
 import { timestampToDateTime } from "../utils/index";
 
 export default function Home() {
-	const SUI_CLOCK =
-		"0x0000000000000000000000000000000000000000000000000000000000000006";
-	const counterPackageId = useNetworkVariable("counterPackageId");
+  const SUI_CLOCK =
+    "0x0000000000000000000000000000000000000000000000000000000000000006";
+  const counterPackageId = useNetworkVariable("counterPackageId");
 
-	const suiClient = useSuiClient();
-	const { mutate: signAndExecute } = useSignAndExecuteTransaction({
-		execute: async ({ bytes, signature }) =>
-			await suiClient.executeTransactionBlock({
-				transactionBlock: bytes,
-				signature,
-				options: {
-					showRawEffects: true,
-					showEffects: true,
-				},
-			}),
-	});
+  const suiClient = useSuiClient();
+  const { mutate: signAndExecute } = useSignAndExecuteTransaction({
+    execute: async ({ bytes, signature }) =>
+      await suiClient.executeTransactionBlock({
+        transactionBlock: bytes,
+        signature,
+        options: {
+          showRawEffects: true,
+          showEffects: true,
+        },
+      }),
+  });
 
-	const [objectId, setObjectId] = useState("");
-	const [mintSuccess, setMintSucess] = useState(false);
-	const [isMinted, setIsMinted] = useState(false);
-	const { petData, setPetData } = usePetData();
+  const [objectId, setObjectId] = useState("");
+  const [mintSuccess, setMintSucess] = useState(false);
+  const [isMinted, setIsMinted] = useState(false);
+  const { petData, setPetData } = usePetData();
 
-	const { data } = useSuiClientQuery("getObject", {
-		id: "0xecda6ee308cdfb2ae27e26c8dd577caff8c463b8e12df154aab2089be359680d",
-		options: {
-			showContent: true,
-			showOwner: true,
-		},
-	});
-	function createUser() {
+  const { data } = useSuiClientQuery("getObject", {
+    id: window.localStorage.getItem("pet") || "",
+    options: {
+      showContent: true,
+      showOwner: true,
+    },
+  });
+
+  function createUser() {
     return new Promise((resolve, reject) => {
       const tx = new Transaction();
       tx.moveCall({
@@ -56,8 +57,8 @@ export default function Home() {
           onSuccess: (result) => {
             const objectId = result.effects?.created?.[0]?.reference?.objectId;
             if (objectId) {
-				console.log('user',objectId);
-				window.localStorage.setItem("user", objectId);
+              console.log('user', objectId);
+              window.localStorage.setItem("user", objectId);
               resolve(objectId); // 成功时解析 Promise
             } else {
               reject(new Error("User object ID not found in the result"));
@@ -72,57 +73,58 @@ export default function Home() {
     });
   }
 
-	async function createFirst() {
-		if (typeof data != "undefined") {
-			console.log(
-				"here is ",
-				data.data,
-			);
+  async function createFirst() {
+    if (typeof data != "undefined") {
+      console.log(
+        "here is ",
+        data.data,
+      );
 
-		setPetData({
-			// @ts-ignore
-			name: data.data?.content?.fields.name,
-			// @ts-ignore
-			birthdate: timestampToDateTime(Number(data.data?.content?.fields.birthdate)),
-			// @ts-ignore
-			grade_level: data.data?.content?.fields.grade_level,
-			// @ts-ignore
-			url:(data.data?.content?.fields.url).toString(),
-			});
-		}
+      setPetData({
+        // @ts-ignore
+        name: data.data?.content?.fields.name,
+        // @ts-ignore
+        birthdate: timestampToDateTime(Number(data.data?.content?.fields.birthdate)),
+        // @ts-ignore
+        grade_level: data.data?.content?.fields.grade_level,
+        // @ts-ignore
+        url: (data.data?.content?.fields.url).toString(),
+      });
+      window.localStorage.setItem("petInfo", JSON.stringify(petData))
+    }
 
-		if (!isMinted) {
-			await createUser();
-			let time = Number(new Date().valueOf());
-			const tx = new Transaction();
-			tx.moveCall({
-				target: `${counterPackageId}::stupet::create_pet`,
-				arguments: [tx.pure.string("Basic"), tx.object(SUI_CLOCK)],
-			});
-			signAndExecute(
-				{
-					transaction: tx,
-				},
-				{
-					onSuccess: (result) => {
-						const objectId = result.effects?.created?.[0]?.reference?.objectId;
-						console.log("objectId: ", objectId);
-						if (objectId) {
-							window.localStorage.setItem("pet", objectId);
-							setObjectId(objectId);
-							setMintSucess(true);
-							setIsMinted(true);
-						}
-					},
-				}
-			);
-		} else {
-			alert("you have minted!Each can mint only once");
-		}
-	}
-	
+    if (!isMinted) {
+      await createUser();
+      let time = Number(new Date().valueOf());
+      const tx = new Transaction();
+      tx.moveCall({
+        target: `${counterPackageId}::stupet::create_pet`,
+        arguments: [tx.pure.string("Basic"), tx.object(SUI_CLOCK)],
+      });
+      signAndExecute(
+        {
+          transaction: tx,
+        },
+        {
+          onSuccess: (result) => {
+            const objectId = result.effects?.created?.[0]?.reference?.objectId;
+            console.log("objectId: ", objectId);
+            if (objectId) {
+              window.localStorage.setItem("pet", objectId);
+              setObjectId(objectId);
+              setMintSucess(true);
+              setIsMinted(true);
+            }
+          },
+        }
+      );
+    } else {
+      alert("you have minted!Each can mint only once");
+    }
+  }
 
-	return (
+
+  return (
     <main className="bg-black">
       <div className="flex flex-row w-full min-h-screen">
         <div className="w-1/4 ml-20 mt-20 flex flex-col">
