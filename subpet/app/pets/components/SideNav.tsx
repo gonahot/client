@@ -62,7 +62,7 @@ export default function SideNav() {
                 <div className="w-3/4">
                     <button className="w-1/2 bg-white text-lg border-2 border-white rounded-lg"
                     >
-                        <Link href="/accessories">Accessories</Link>
+                        <Link href="/pets/accessories">Accessories</Link>
                     </button>
                 </div>
             </div>

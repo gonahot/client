@@ -26,7 +26,7 @@ export function NavLinks() {
         <button className="w-1/3 text-black hover:bg-black hover:text-white hover:border-md">
           <Link
             className={`link ${
-              pathname === "/home" ? "bg-active text-active" : ""
+              pathname.includes("/home") ? "bg-active text-active" : ""
             } block w-full h-full leading-[52px]`}
             href="/home"
           >
@@ -36,7 +36,7 @@ export function NavLinks() {
         <button className="w-1/3 text-black hover:bg-black hover:text-white hover:border-md">
           <Link
             className={`link ${
-              pathname === "/pets" ? "bg-active text-active" : ""
+              pathname.includes("/pets") ? "bg-active text-active" : ""
             } block w-full h-full leading-[52px]`}
             href="/pets"
           >
@@ -46,7 +46,7 @@ export function NavLinks() {
         <button className="w-1/3 text-black hover:bg-black hover:text-white hover:border-md">
           <Link
             className={`link ${
-              pathname === "/topic" ? "bg-active text-active" : ""
+              pathname.includes("/topic") ? "bg-active text-active" : ""
             } block w-full h-full leading-[52px]`}
             href="/topic"
           >
@@ -56,7 +56,7 @@ export function NavLinks() {
         <button className="w-1/3 text-black hover:bg-black hover:text-white hover:border-md">
           <Link
             className={`link ${
-              pathname === "/more" ? "bg-active text-active" : ""
+              pathname.includes("/more") ? "bg-active text-active" : ""
             } block w-full h-full leading-[52px]`}
             href="/more"
           >
