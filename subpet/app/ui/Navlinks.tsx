@@ -4,10 +4,23 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
-import { ConnectButton } from "@mysten/dapp-kit";
+import { ConnectButton, useAccounts } from "@mysten/dapp-kit";
+import { useEffect } from "react";
 
 export function NavLinks() {
   const pathname = usePathname();
+
+  const accounts = useAccounts();
+
+  useEffect(() => {
+    if (accounts.length > 0) {
+      console.log("accounts: ", accounts);
+    } else {
+      window.localStorage.removeItem("pet");
+      window.localStorage.removeItem("imgUrl");
+      
+    }
+  }, [accounts]);
 
   return (
     <div className="flex w-full h-50 bg-white flex-row">

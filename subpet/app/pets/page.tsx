@@ -6,17 +6,21 @@ import { use, useEffect, useState } from "react";
 import {usePetData} from '../context/PetDataContext';
 import { Transaction } from "@mysten/sui/transactions";
 import { useNetworkVariable } from "../networkConfig";
+import { useAccounts } from "@mysten/dapp-kit";
 
 export default function Home() {
   const { petData, setPetData } = usePetData();
   const [imgUrl, setImgUrl] = useState("");
+  const accounts = useAccounts();
   const counterPackageId = useNetworkVariable("counterPackageId");
+  // const { isWalletConnected, connecting } = useWalletContext();
 
   useEffect(() => {
     setImgUrl(window.localStorage.getItem("imgUrl") || "/base.gif");
-  }, [imgUrl]);
+  }, [imgUrl, accounts]);
 
-  const petInfo = JSON.parse(window.localStorage.getItem("petInfo") || "")
+
+  const petInfo = JSON.parse(window.localStorage.getItem("petInfo") || "{}")
 
   return (
     <>
@@ -53,3 +57,7 @@ export default function Home() {
  
   );
 }
+function useWalletContext(): { isWalletConnected: any; connecting: any; } {
+  throw new Error("Function not implemented.");
+}
+

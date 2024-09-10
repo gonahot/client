@@ -66,7 +66,8 @@ export default function Home() {
           },
           onError: (error) => {
             console.log("error", error);
-            reject(error); // 失败时拒绝 Promise
+            alert(error);
+            // reject(error); // 失败时拒绝 Promise
           },
         }
       );
