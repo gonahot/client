@@ -7,7 +7,7 @@ import { useSignAndExecuteTransaction, useSuiClient, useSuiClientQuery } from '@
 import { Transaction } from '@mysten/sui/transactions';
 
 import { useNetworkVariable } from "../networkConfig";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { usePetData } from "../context/PetDataContext";
 import { timestampToDateTime } from "../utils/index";
 
@@ -34,13 +34,20 @@ export default function Home() {
   const [isMinted, setIsMinted] = useState(false);
   const { petData, setPetData } = usePetData();
 
+
   const { data } = useSuiClientQuery("getObject", {
-    id: window.localStorage.getItem("pet") || "",
+    id: objectId || "",
     options: {
       showContent: true,
       showOwner: true,
     },
   });
+
+  useEffect(() => {
+    if (data!= undefined) {
+      console.log("data:",data);
+    }
+}, [isMinted]);
 
   function createUser() {
     return new Promise((resolve, reject) => {
@@ -75,12 +82,7 @@ export default function Home() {
   }
 
   async function createFirst() {
-    if (typeof data != "undefined") {
-      console.log(
-        "here is ",
-        data.data,
-      );
-
+    if (isMinted) {
       setPetData({
         // @ts-ignore
         name: data.data?.content?.fields.name,
@@ -113,7 +115,7 @@ export default function Home() {
             if (objectId) {
               window.localStorage.setItem("pet", objectId);
               setObjectId(objectId);
-              setMintSucess(true);
+              window.localStorage.setItem("mintSuccess", objectId);
               setIsMinted(true);
             }
           },
@@ -124,6 +126,21 @@ export default function Home() {
     }
   }
 
+  function detail(){
+    if (isMinted) {
+      setPetData({
+        // @ts-ignore
+        name: data.data?.content?.fields.name,
+        // @ts-ignore
+        birthdate: timestampToDateTime(Number(data.data?.content?.fields.birthdate)),
+        // @ts-ignore
+        grade_level: data.data?.content?.fields.grade_level,
+        // @ts-ignore
+        url: (data.data?.content?.fields.url).toString(),
+      });
+      window.localStorage.setItem("petInfo", JSON.stringify(petData))
+    }
+  }
 
   return (
     <main className="bg-black">
@@ -162,7 +179,7 @@ export default function Home() {
             <div className="text-white text-7xl flex">
               Adopt your first pet on Sui !
             </div>
-            {mintSuccess ? (
+            { window.localStorage.getItem("pet") != null ? (
               <div className="p-3 bg-white border rounded-lg flex flex-col items-center justify-content w-2/3">
                 <div className=" text-3xl">Congratulations !</div>
                 <Image
@@ -173,9 +190,9 @@ export default function Home() {
                   height={200}
                   priority
                 />
-                <p className="text-sm"> here is your pet {objectId}</p>
+                <p className="text-sm"> here is your pet {window.localStorage.getItem("pet")}</p>
                 <button className="bg-[#E7E7E7] bordered rounded-md h-1/3 p-1">
-                  <Link href="/pets">Continue</Link>
+                  <Link href="/pets" onClick={()=>detail()}>Continue</Link>
                 </button>
               </div>
             ) : (
