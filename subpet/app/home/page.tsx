@@ -65,7 +65,9 @@ export default function Home() {
             const objectId = result.effects?.created?.[0]?.reference?.objectId;
             if (objectId) {
               console.log('user', objectId);
-              window.localStorage.setItem("user", objectId);
+              if (typeof window !== "undefined") {
+                window.localStorage.setItem("user", objectId);
+              }
               resolve(objectId); // 成功时解析 Promise
             } else {
               reject(new Error("User object ID not found in the result"));
@@ -93,7 +95,9 @@ export default function Home() {
         // @ts-ignore
         url: (data.data?.content?.fields.url).toString(),
       });
-      window.localStorage.setItem("petInfo", JSON.stringify(petData))
+      if (typeof window!== "undefined") {
+        window.localStorage.setItem("petInfo", JSON.stringify(petData))
+      }
     }
 
     if (!isMinted) {
@@ -113,10 +117,13 @@ export default function Home() {
             const objectId = result.effects?.created?.[0]?.reference?.objectId;
             console.log("objectId: ", objectId);
             if (objectId) {
-              window.localStorage.setItem("pet", objectId);
-              setObjectId(objectId);
-              window.localStorage.setItem("mintSuccess", objectId);
-              setIsMinted(true);
+              if (typeof window !== "undefined") { 
+                window.localStorage.setItem("pet", objectId);
+                setObjectId(objectId);
+                window.localStorage.setItem("mintSuccess", objectId);
+                setIsMinted(true);
+
+              }
             }
           },
         }
@@ -138,7 +145,9 @@ export default function Home() {
         // @ts-ignore
         url: (data.data?.content?.fields.url).toString(),
       });
-      window.localStorage.setItem("petInfo", JSON.stringify(petData))
+      if (typeof window !== "undefined") { 
+         window.localStorage.setItem("petInfo", JSON.stringify(petData))
+      }
     }
   }
 
@@ -179,7 +188,7 @@ export default function Home() {
             <div className="text-white text-7xl flex">
               Adopt your first pet on Sui !
             </div>
-            { window.localStorage.getItem("pet") != null ? (
+            { typeof window !== "undefined" && window.localStorage.getItem("pet") != null ? (
               <div className="p-3 bg-white border rounded-lg flex flex-col items-center justify-content w-2/3">
                 <div className=" text-3xl">Congratulations !</div>
                 <Image
@@ -190,7 +199,7 @@ export default function Home() {
                   height={200}
                   priority
                 />
-                <p className="text-sm"> here is your pet {window.localStorage.getItem("pet")}</p>
+                <p className="text-sm"> here is your pet {typeof window !== "undefined" && window.localStorage.getItem("pet")}</p>
                 <button className="bg-[#E7E7E7] bordered rounded-md h-1/3 p-1">
                   <Link href="/pets" onClick={()=>detail()}>Continue</Link>
                 </button>

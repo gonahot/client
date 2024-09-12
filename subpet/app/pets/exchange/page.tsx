@@ -16,8 +16,8 @@ export default function Exchange() {
 	const counterPackageId = useNetworkVariable("counterPackageId");
 
 	const suiClient = useSuiClient();
-	// const account = useCurrentAccount();
-	const userAcount = window.localStorage.getItem("user");
+	const userAcount = useCurrentAccount();
+	//const userAcount = window.localStorage.getItem("user");
 	const router = useRouter();
 	const [imgUrl, setImgUrl] = useState("");
 
@@ -41,9 +41,12 @@ export default function Exchange() {
 		return new Promise((resolve, reject) => {
 			const tx = new Transaction();
 			tx.setGasBudget(10000000);
+			if (!userAcount || !userAcount.address) {
+				return reject("User account not available");
+			}
 			tx.moveCall({
 				target: `${counterPackageId}::stupet::mint_item`,
-				arguments: [tx.pure.address(String(userAcount)), tx.pure.u64(type)],
+				arguments: [tx.pure.address(userAcount.address), tx.pure.u64(type)],
 			});
 			signAndExecute(
 				{
@@ -87,20 +90,20 @@ export default function Exchange() {
 	let [choice, setChoice] = useState("");
 
 	async function choose(choice: string, type: number) {
-		await mintItem(type);
+  		await mintItem(type);
 		setIsChoose(true);
 		setChoice(choice);
 	}
 
 	function rightNow() {
 		setIsChoose(false);
-		if (imgUrl === cap.randomUrl) {
+		if (imgUrl === cap.randomUrl && typeof window !== "undefined") {
 		window.localStorage.setItem("imgUrl", cap.gif);
 		}
-		if (imgUrl === action.randomUrl) {
+		if (imgUrl === action.randomUrl && typeof window !== "undefined") {
 		window.localStorage.setItem("imgUrl", action.gif);
 		}
-		if (imgUrl === cloth.randomUrl){
+		if (imgUrl === cloth.randomUrl && typeof window !== "undefined"){
 		window.localStorage.setItem("imgUrl", cloth.gif);
 		}
 		router.push("/pets");
