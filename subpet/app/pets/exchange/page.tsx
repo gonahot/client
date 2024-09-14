@@ -120,13 +120,13 @@ export default function Exchange() {
 					<div className="rounded-lg bg-white flex flex-row h-120">
 						<div className="w-1/3 text-6xl mt-20 ml-5 h-full">
 							<p>Congratulation!</p>
-							<Image
+							<img
 								className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
 								src={imgUrl || "/base.gif"}
 								alt="Logo"
 								width={300}
 								height={300}
-								priority
+								
 							/>
 						</div>
 						<div className="w-1/2 flex flex-col mt-20">
@@ -171,13 +171,13 @@ export default function Exchange() {
 							<p className="text-white text-3xl mt-5">action</p>
 
 							<div>
-								<Image
+								<img
 									className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-									src="/pets/exchange.png"
+									src={"/pets/exchange.png"}
 									alt="Logo"
 									width={180}
 									height={180}
-									priority
+									
 								/>
 							</div>
 						</div>
@@ -189,13 +189,13 @@ export default function Exchange() {
 						>
 							<p className="text-white text-3xl mt-5">cloth</p>
 							<div>
-								<Image
+								<img
 									className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-									src="/pets/exchange.png"
+									src={"/pets/exchange.png"}
 									alt="Logo"
 									width={180}
 									height={180}
-									priority
+									
 								/>
 							</div>
 						</div>
@@ -208,13 +208,13 @@ export default function Exchange() {
 							<p className="text-white text-3xl mt-5">cap</p>
 
 							<div>
-								<Image
+								<img
 									className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-									src="/pets/exchange.png"
+									src={"/pets/exchange.png"}
 									alt="Logo"
 									width={180}
 									height={180}
-									priority
+									
 								/>
 							</div>
 						</div>

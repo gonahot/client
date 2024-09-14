@@ -25,13 +25,12 @@ export function NavLinks() {
   return (
     <div className="flex w-full h-50 bg-white flex-row">
       <div className="w-1/3 flex flex-row">
-        <Image
+        <img
           className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/logo.gif"
+          src={"/logo.gif"}
           alt="Logo"
           width={70}
           height={40}
-          priority
         />
         <p className="mt-4 text-2xl">SuiPet</p>
       </div>

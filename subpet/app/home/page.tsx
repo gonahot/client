@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from 'next/link'
+import LogImage from "../image/logo.gif"
 
 import { useSignAndExecuteTransaction, useSuiClient, useSuiClientQuery } from '@mysten/dapp-kit';
 import { Transaction } from '@mysten/sui/transactions';
@@ -12,6 +13,8 @@ import { usePetData } from "../context/PetDataContext";
 import { timestampToDateTime } from "../utils/index";
 
 export default function Home() {
+  const logIamge = "/logo.gif"
+  const baseIage = "/base.gif"
   const SUI_CLOCK =
     "0x0000000000000000000000000000000000000000000000000000000000000006";
   const counterPackageId = useNetworkVariable("counterPackageId");
@@ -168,14 +171,14 @@ export default function Home() {
         </div>
         <div className="w-3/4 ml-20 mt-20 flex flex-row">
           <div className="flex flex-col justify-content items-center mr-10">
-            <Image
+            <img
               className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert mt-36"
               src="/logo.gif"
               alt="Logo"
               width={300}
               height={300}
-              priority
             />
+            
             <button
               onClick={() => createFirst()}
               className="text-white hover:text-black hover:bg-white text-xl mt-5 border-2 border-white p-1 rounded-lg"
@@ -191,13 +194,12 @@ export default function Home() {
             { typeof window !== "undefined" && window.localStorage.getItem("pet") != null ? (
               <div className="p-3 bg-white border rounded-lg flex flex-col items-center justify-content w-2/3">
                 <div className=" text-3xl">Congratulations !</div>
-                <Image
+                <img
                   className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert items-center justify-content mt-8"
-                  src="/base.gif"
+                  src={"/base.gif"}
                   alt="Base"
                   width={200}
                   height={200}
-                  priority
                 />
                 <p className="text-sm"> here is your pet {typeof window !== "undefined" && window.localStorage.getItem("pet")}</p>
                 <button className="bg-[#E7E7E7] bordered rounded-md h-1/3 p-1">

@@ -5,13 +5,13 @@ export default function SideNav() {
         <>
             <div className="flex flex-row w-full">
                 <div className="w-1/4">
-                    <Image
+                    <img
                         className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-                        src="/pets/signin-icon.png"
+                        src={"/pets/signin-icon.png"}
                         alt="Logo"
                         width={30}
                         height={30}
-                        priority
+                       
                     />
                 </div>
                 <div className="w-3/4">
@@ -27,13 +27,13 @@ export default function SideNav() {
             </div>
             <div className="flex flex-row w-full mt-6">
                 <div className="w-1/4">
-                    <Image
+                    <img
                         className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-                        src="/pets/exchange.png"
+                        src={"/pets/exchange.png"}
                         alt="Logo"
                         width={30}
                         height={30}
-                        priority
+          
                     />
                 </div>
                 <div className="w-3/4">
@@ -50,13 +50,13 @@ export default function SideNav() {
 
             <div className="flex flex-row w-full mt-6">
                 <div className="w-1/4">
-                    <Image
+                    <img
                         className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-                        src="/pets/cloth.png"
+                        src={"/pets/cloth.png"}
                         alt="Logo"
                         width={30}
                         height={30}
-                        priority
+                      
                     />
                 </div>
                 <div className="w-3/4">
