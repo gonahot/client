@@ -170,7 +170,7 @@ export default function Home() {
           <div className="flex flex-col justify-content items-center mr-10">
             <Image
               className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert mt-36"
-              src="/logo.gif"
+              src="public\base.gif"
               alt="Logo"
               width={300}
               height={300}
@@ -188,7 +188,8 @@ export default function Home() {
             <div className="text-white text-7xl flex">
               Adopt your first pet on Sui !
             </div>
-            { typeof window !== "undefined" && window.localStorage.getItem("pet") != null ? (
+            {typeof window !== "undefined" &&
+            window.localStorage.getItem("pet") != null ? (
               <div className="p-3 bg-white border rounded-lg flex flex-col items-center justify-content w-2/3">
                 <div className=" text-3xl">Congratulations !</div>
                 <Image
@@ -199,9 +200,16 @@ export default function Home() {
                   height={200}
                   priority
                 />
-                <p className="text-sm"> here is your pet {typeof window !== "undefined" && window.localStorage.getItem("pet")}</p>
+                <p className="text-sm">
+                  {" "}
+                  here is your pet{" "}
+                  {typeof window !== "undefined" &&
+                    window.localStorage.getItem("pet")}
+                </p>
                 <button className="bg-[#E7E7E7] bordered rounded-md h-1/3 p-1">
-                  <Link href="/pets" onClick={()=>detail()}>Continue</Link>
+                  <Link href="/pets" onClick={() => detail()}>
+                    Continue
+                  </Link>
                 </button>
               </div>
             ) : (
