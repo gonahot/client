@@ -28,13 +28,13 @@ export default function Home() {
             <div className="text-2xl flex flex-col h-full">
               <div className="p-3 bg-white border rounded-lg flex flex-col w-2/3 items-center justify-content ">
               { petData.name != "" ? (
-                <Image
-                  className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert items-center justify-content mt-20"
-                  src={imgUrl || "/base.gif"}
+              <img
+                className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert items-center justify-content mt-20"
+                src={imgUrl || "/base.gif"}
                   alt="Base"
                   width={300}
                   height={300}
-                  priority
+                
                 />
                 ):(
                 <div className="mb-80">{petInfo}</div>
